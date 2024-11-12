@@ -131,7 +131,7 @@ INSERT INTO roles (nombre) VALUES
 
 ```
 
-### configuramos drizzle para que se conecte a nuestra base de datos en TURSO
+## Configuramos drizzle para que se conecte a nuestra base de datos en TURSO
 
 Para ello vamos a crear un archivo .env en la raíz del proyecto con los parámetros de conexión a la base de datos.
 
@@ -146,8 +146,8 @@ bun add drizzle-orm @libsql/client
 bun add -D drizzle-kit
 ```
 
-### Configuramos el archivo drizzle.config.ts
-Este archivo se encuentra en la raíz del proyecto y es el encargado de configurar la conexión a la base de datos, pues contiene toda la información sobre esta y los archivos de eschema.
+### Creamos el archivo drizzle.config.ts
+Este archivo lo debemos crear en la raíz del proyecto y es el encargado de configurar la conexión a la base de datos, pues contiene toda la información sobre esta y los archivos de eschema.
 
     > "En Drizzle, los archivos de esquemas (schemas) son archivos que definen la estructura de tu base de datos. Estos archivos especifican las tablas, columnas, tipos de datos y relaciones entre las tablas en tu base de datos.
 
