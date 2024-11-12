@@ -161,4 +161,4 @@ INSERT INTO citas (agenda_id, paciente_id, estado, motivo) VALUES
 (10, 4, 'pendiente', 'Dolor de cabeza');
 
 -- Marcar algunas citas como no disponibles en agenda
-UPDATE agenda SET disponible = 0 WHERE id IN (1, 5, 10);</sql><current_tab id="0"/></tab_sql></sqlb_project>
+UPDATE agenda SET disponible = 0 WHERE id IN (1, 5, 10);
