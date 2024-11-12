@@ -8,7 +8,7 @@ Sin excepción todos los usuraios tendrán que loguearse en el sistema para que 
 
 No vamos a considerar la autenticación de los usuarios con proveedores externos como Google, Facebook y vamos a utilizar un sistema de autenticación simple con email y contraseña como el que vimos en clase.
 
-## Base de datos:
+### Base de datos:
 >  -  Se tendrá una tabla de **roles** para definir los roles de los usuarios.
 >  - Se tendrá una tabla de **usuarios** para guardar la información de los usuarios.
 >  - Se tendrá una tabla de **especialidades** para guardar las especialidades de los médicos.
@@ -81,7 +81,7 @@ CREATE TABLE doctor_especilidad (
 
 ```
 
-## configuramos drizzle para que se conecte a nuestra base de datos en TURSO
+### configuramos drizzle para que se conecte a nuestra base de datos en TURSO
 
 Para ello vamos a crear un archivo .env en la raíz del proyecto con los parámetros de conexión a la base de datos.
 
@@ -96,7 +96,7 @@ bun add drizzle-orm @libsql/client
 bun add -D drizzle-kit
 ```
 
-## Configuramos el archivo drizzle.config.ts
+### Configuramos el archivo drizzle.config.ts
 Este archivo se encuentra en la raíz del proyecto y es el encargado de configurar la conexión a la base de datos, pues contiene toda la información sobre esta y lo archivos de eschema.
 
     > "En Drizzle, los archivos de esquemas (schemas) son archivos que definen la estructura de tu base de datos. Estos archivos especifican las tablas, columnas, tipos de datos y relaciones entre las tablas en tu base de datos.
@@ -121,7 +121,7 @@ export default defineConfig({
   },
 });
 ```
-## Generar un archivo de esquema para la nuestra base de datos:
+### Generar un archivo de esquema para la nuestra base de datos:
 
 - Drizzle Kit tiene un comando que puedes usar en la terminal para revisar tu base de datos. Este comando crea un archivo que describe cómo está organizada tu base de datos, incluyendo las tablas, columnas, relaciones e índices. Este archivo se llama "archivo de esquema" y es útil para mantener tu base de datos y tu código sincronizados.
 
@@ -136,53 +136,20 @@ El anterior comando nos dará el resultado de la inspección será un archivo `s
 
 Todo ello quedará en el directorio raíz del proyecto dentro de la carpeta **drizzle** que indicamos en el archivo **"drizzle-config.ts"**
 
+├ 📂 drizzle
+│ ├ 📂 meta
+│ ├ 📜 migration.sql
+│ ├ 📜 relations.ts ────────┐
+│ └ 📜 schema.ts ───────────┤
+├ 📂 src                    │
+│ ├ 📂 db                   │
+│ │ ├ 📜 relations.ts <─────┤
+│ │ └ 📜 schema.ts <────────┘
+│ └ 📜 index.ts
+└ …
 
 
-        ├ 📂 drizzle
-        │ ├ 📂 meta
-        │ ├ 📜 migration.sql
-        │ ├ 📜 relations.ts ────────┐
-        │ └ 📜 schema.ts ───────────┤
-        ├ 📂 src                    │ 
-        │  └ 📂 lib                 │
-        │   └ 📂 server             │
-        │     ├ 📜 relations.ts <───┤
-        │     └ 📜 schema.ts <──────┘
-        │              
-        └ …
 
-
-## Transfiere el código a tu archivo de esquema real
-Transferir el código generado de *"drizzle/schema.ts"* y *"drizzle/relations.ts"* al archivo de esquema real. En esta guía, transferimos el código a *"src/lib/server/schema.ts"*. Los archivos originales para el esquema y las relaciones pueden ser eliminados. De esta manera, puedes gestionar tu esquema de una manera más estructurada.
-
-
-## Conectar Drizzle a la base de datos
-
-Creamos un archivo `index.ts`  en la carpeta `src/lib/server/` e inicializamos la conexión:
-
-        ├ 📂 drizzle
-        │ ├ 📂 meta
-        │ ├ 📜 migration.sql
-        │ ├ 📜 relations.ts 
-        │ └ 📜 schema.ts 
-        ├ 📂 src     
-        │  └ 📂 lib    
-        │   └ 📂 server             
-        │     ├ 📜 relations.ts
-        │     ├ 📜 relations.ts       
-        │     └ 📜 schema.ts
-        └ …
-
-```typescript
-import 'dotenv/config';
-import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
-const client = createClient({ 
-  url: process.env.TURSO_DATABASE_URL!, 
-  authToken: process.env.TURSO_AUTH_TOKEN!
-});
-const db = drizzle({ client });
-```
 
 1  - **Paciente**: Podrá agendar citas con los médicos y ver o modificar las citas que tiene agendadas. Para ello vamos a realizar los siguientes pasos.
   -  Crear ruta de pacientes, con subrutas para el agendamiento de citas, la modificación de citas y la cancelación de citas
