@@ -1,2 +1,2 @@
-export * from "$lib/server/db/relations";
-export * from "$lib/server/db/schema";
+export * from "./relations";
+export * from "./schema";

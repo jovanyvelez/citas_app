@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS agenda;
 DROP TABLE IF EXISTS doctor_especialidad;
 DROP TABLE IF EXISTS especialidades;
 DROP TABLE IF EXISTS clinicas;
+DROP TABLE IF EXISTS usuarios_aut;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS roles;
 
@@ -25,12 +26,11 @@ CREATE TABLE usuarios (
     celular TEXT,
     direccion TEXT NOT NULL,
     rol_id INTEGER NOT NULL,
-    password_hash TEXT NOT NULL,
-    token_auth TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (rol_id) REFERENCES roles(id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
 
 CREATE TABLE clinicas (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -162,3 +162,14 @@ INSERT INTO citas (agenda_id, paciente_id, estado, motivo) VALUES
 
 -- Marcar algunas citas como no disponibles en agenda
 UPDATE agenda SET disponible = 0 WHERE id IN (1, 5, 10);
+
+CREATE TABLE usuarios_auth (
+    id TEXT PRIMARY KEY,
+    email_user TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    token_auth TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (email_user) REFERENCES usuarios(email) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+

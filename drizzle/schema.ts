@@ -1,4 +1,5 @@
-import { sqliteTable, integer, text, index} from "drizzle-orm/sqlite-core"
+import { sqliteTable, AnySQLiteColumn, integer, text, index, foreignKey } from "drizzle-orm/sqlite-core"
+  import { sql } from "drizzle-orm"
 
 export const roles = sqliteTable("roles", {
 	id: integer().primaryKey({ autoIncrement: true }).notNull(),
@@ -95,3 +96,4 @@ export const usuariosAuth = sqliteTable("usuarios_auth", {
 	createdAt: text("created_at").default("sql`(datetime('now'))`"),
 	updatedAt: text("updated_at").default("sql`(datetime('now'))`"),
 });
+

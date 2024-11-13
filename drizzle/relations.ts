@@ -22,20 +22,19 @@ export const rolesRelations = relations(roles, ({many}) => ({
 }));
 
 export const doctorEspecialidadRelations = relations(doctorEspecialidad, ({one}) => ({
-	doctor: one(usuarios, {
+	usuario: one(usuarios, {
 		fields: [doctorEspecialidad.medicoId],
 		references: [usuarios.id]
 	}),
-	especialidad: one(especialidades, {
+	especialidade: one(especialidades, {
 		fields: [doctorEspecialidad.especialidadId],
 		references: [especialidades.id]
 	}),
 }));
 
 export const especialidadesRelations = relations(especialidades, ({many}) => ({
-	doctores: many(doctorEspecialidad),
+	doctorEspecialidads: many(doctorEspecialidad),
 	agenda: many(agenda),
-
 }));
 
 export const agendaRelations = relations(agenda, ({one, many}) => ({
